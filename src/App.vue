@@ -1,30 +1,43 @@
 <template>
   <div id="app" >
-    <h1>Twój email to {{email.toLowerCase()}}</h1>
-    <div v-if="email.length < 10">Ale masz krótki adres!</div>
-    <div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>
-    <div v-else>Twój adres e-mail jest stanowczo za długi.</div>
-    <input type="email" v-model="email">
-    <button @click="alertMyEmail()">Wyświetl mój e-mail w alercie</button>
-  </div>
+    <h1>Witaj w systemie zapisów na zajęcia</h1>
+    <h3>Zaloguj się e-mailem</h3>
+  
+<div v-if="!isAuthenticated">
+  <input type="email" v-model ="email">
+  <button @click="logIn()">Wchodzę</button>
+</div>
 
-
+<div v-else>
+  <h2>Zalogowany jako {{email}}</h2>
+  <button @click="logOut()">Wyloguj</button>
+</div>
+    </div>
 </template>
+
 <script>
 export default {
-  name: 'app',
-  data () {
+  name: "app",
+  data() {
     return {
-      email: ''
+      email: "",
+      isAuthenticated: false
+    };
+  },
+  methods: {
+    logIn() {
+      this.isAuthenticated = true;
+    },
+    logOut() {
+      this.isAuthenticated = false;
     }
   }
-}
-
+};
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -32,8 +45,10 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
-  font-weight: normal;
+h1,
+h2 {
+  font-weight: bold;
+  font-size: 2000 px;
 }
 
 ul {
